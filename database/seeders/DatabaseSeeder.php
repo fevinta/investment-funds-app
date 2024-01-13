@@ -15,15 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Company::factory()
-            ->has(
-                Fund::factory()
-                    ->for(Company::factory(), 'ManagerCompany')
-                    ->has(Alias::factory()->count(random_int(1, 100)), 'Aliases')
-                    ->count(random_int(1, 100)),
-                'InvestedFunds'
-            )
-            ->count(random_int(1, 100))
-            ->create();
+
+        $this->call([
+            CompanySeeder::class,
+            FundSeeder::class
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class FundFactory extends Factory
     {
         return [
             'name'       => $this->faker->word,
-            'start_year' => $this->faker->year
+            'start_year' => $this->faker->year,
+            'company_id' => Company::factory()
         ];
     }
 }
