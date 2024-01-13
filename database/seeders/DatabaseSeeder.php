@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Alias;
+use App\Models\Company;
+use App\Models\Fund;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +15,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Company::factory()
+            ->has(
+                Fund::factory()
+                    ->for(Company::factory(), 'ManagerCompany')
+                    ->has(Alias::factory()->count(random_int(1, 100)), 'Aliases')
+                    ->count(random_int(1, 100)),
+                'InvestedFunds'
+            )
+            ->count(random_int(1, 100))
+            ->create();
     }
 }
