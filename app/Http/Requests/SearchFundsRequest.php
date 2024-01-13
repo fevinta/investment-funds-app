@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFundRequest extends FormRequest
+class SearchFundsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,9 @@ class UpdateFundRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => 'required|string',
-            'start_year' => 'required|integer'
+            'name'       => 'nullable|string',
+            'company'    => 'nullable|string',
+            'start_year' => 'nullable|integer'
         ];
     }
 }

@@ -2,65 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreFundRequest;
+use App\Http\Requests\SearchFundsRequest;
 use App\Http\Requests\UpdateFundRequest;
+use App\Interfaces\FundRepositoryInterface;
 use App\Models\Fund;
+use Illuminate\Http\JsonResponse;
 
 class FundController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+    public function __construct(
+        private FundRepositoryInterface $fundRepository
+    ) {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index(SearchFundsRequest $request): JsonResponse
     {
-        //
+        $result = $this->fundRepository->search($request->validated());
+
+        return response()->json($result);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreFundRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Fund $fund)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Fund $fund)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateFundRequest $request, Fund $fund)
     {
-        //
-    }
+        $updated = $this->fundRepository->updateFund($fund, $request->validated());
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Fund $fund)
-    {
-        //
+        if (!$updated) {
+            return response()->json(['message' => 'Fund not updated'], 500);
+        } else {
+            return response()->json(['message' => 'Fund updated']);
+        }
     }
 }
