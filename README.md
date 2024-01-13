@@ -1,6 +1,6 @@
 ## ER Diagram
 
-![ER Diagram](https://github.com/fevinta/laravel-asessment/blob/main/storage/er_diagram.png?raw=true)
+![ER Diagram](https://github.com/fevinta/laravel-asessment/blob/main/storage/er_diagram.svg?raw=true)
 
 ## How to run the project
 
