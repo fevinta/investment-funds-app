@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 use App\Interfaces\FundRepositoryInterface;
 use App\Models\Fund;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Pagination\Paginator;
 
 class FundRepository implements FundRepositoryInterface
 {
@@ -28,13 +28,26 @@ class FundRepository implements FundRepositoryInterface
             ->simplePaginate();
     }
 
-    public function getPossibleDuplicates(): Collection
+    public function getAllPossibleDuplicates(Fund $fund): Collection
     {
-        return Fund::query()
-            ->select('name', 'start_year')
-            ->selectRaw('count(*) as count')
-            ->groupBy('name', 'start_year')
-            ->having('count', '>', 1)
+        $aliases = $fund->aliases()->pluck('name');
+
+        return Fund::where(function ($query) use ($fund, $aliases) {
+            $query->where('name', $fund->name);
+
+            $query->orWhereHas('aliases', function ($subQuery) use ($fund) {
+                $subQuery->where('name', $fund->name);
+            });
+
+            if ($aliases->isNotEmpty()) {
+                $query->orWhereIn('name', $aliases);
+                $query->orWhereHas('aliases', function ($subQuery) use ($aliases) {
+                    $subQuery->whereIn('name', $aliases);
+                });
+            }
+        })
+            ->where('company_id', $fund->company_id)
+            ->where('id', '!=', $fund->id)
             ->get();
     }
 

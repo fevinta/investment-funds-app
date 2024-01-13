@@ -15,7 +15,7 @@ class Company extends Model
         'name'
     ];
 
-    public function ManagedFounds(): HasMany
+    public function ManagedFunds(): HasMany
     {
         return $this->hasMany(Fund::class);
     }

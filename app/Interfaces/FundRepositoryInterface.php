@@ -10,7 +10,7 @@ interface FundRepositoryInterface
 {
     public function search($filters = []): Paginator;
 
-    public function getPossibleDuplicates(): Collection;
+    public function getAllPossibleDuplicates(Fund $fund): Collection;
 
     public function updateFund(Fund $fund, array $data): bool;
 }
