@@ -10,9 +10,8 @@ use Illuminate\Http\JsonResponse;
 
 class FundController extends Controller
 {
-    public function __construct(
-        private FundRepositoryInterface $fundRepository
-    ) {
+    public function __construct(private FundRepositoryInterface $fundRepository)
+    {
         //
     }
 
@@ -28,9 +27,9 @@ class FundController extends Controller
         $updated = $this->fundRepository->updateFund($fund, $request->validated());
 
         if (!$updated) {
-            return response()->json(['message' => 'Fund not updated'], 500);
+            return response()->json(['message' => 'Error updating the Fund.'], 500);
         } else {
-            return response()->json(['message' => 'Fund updated']);
+            return response()->json(['message' => 'Fund updated successfully.']);
         }
     }
 }

@@ -11,7 +11,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 
-class DuplicateFundWarningMail extends Mailable
+class DuplicateFundWarningMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -32,10 +32,5 @@ class DuplicateFundWarningMail extends Mailable
         return new Content(
             markdown: 'mail.funds.duplicate-warning',
         );
-    }
-
-    public function attachments(): array
-    {
-        return [];
     }
 }

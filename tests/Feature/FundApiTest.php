@@ -84,5 +84,5 @@ it('send and email to the user after a duplicated fund is created', function () 
         'company_id' => $company->id
     ]);
 
-    Mail::assertSent(DuplicateFundWarningMail::class);
+    Mail::assertQueued(DuplicateFundWarningMail::class);
 });

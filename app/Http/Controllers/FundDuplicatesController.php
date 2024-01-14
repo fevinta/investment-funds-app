@@ -8,9 +8,8 @@ use Illuminate\Http\JsonResponse;
 
 class FundDuplicatesController extends Controller
 {
-    public function __construct(
-        private FundRepositoryInterface $fundRepository
-    ) {
+    public function __construct(private FundRepositoryInterface $fundRepository)
+    {
         //
     }
 
@@ -18,8 +17,6 @@ class FundDuplicatesController extends Controller
     {
         $result = $this->fundRepository->getAllPossibleDuplicates($fund);
 
-        return response()->json([
-            'data' => $result
-        ]);
+        return response()->json(['data' => $result]);
     }
 }
