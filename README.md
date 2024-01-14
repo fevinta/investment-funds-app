@@ -1,4 +1,10 @@
-# ER Diagram
+# Introduction
+
+This repository hosts a comprehensive solution for managing and curating a dynamic dataset of investment funds,
+essential for automating workflows in fund administration. It features a master database, serving as a single source of
+truth, and a tailored web application for ongoing manual curation.
+
+# Entity Relationship Diagram
 
 ![ER Diagram](https://github.com/fevinta/laravel-asessment/blob/main/storage/er_diagram.svg?raw=true)
 
@@ -7,7 +13,7 @@
 1. Clone the repository.
 2. Run `composer install` to install all the dependencies.
 3. Run `npm install` to install all the dependencies.
-4. Run `npm run dev` to start the server in development mode.
+4. Run `npm run build` to start the server in development mode.
 5. Run `cp .env.example .env` to create a copy of the environment file.
 6. Run `php artisan key:generate` to generate the application key.
 7. Run `php artisan migrate` to migrate the database.
@@ -15,7 +21,7 @@
 
 # How to test the project
 
-1. Install and configure PEST.
+1. Install and configure [PEST](https://pestphp.com/docs/installation).
 2. Run `./vendor/bin/pest` to run all the tests. Alternative you can run `./vendor/bin/pest --coverage` to run all the
    tests and generate a coverage report.
 
@@ -43,7 +49,7 @@ Retrieves a paginated list of funds based on specified query parameters.
 
 #### Example Request
 
-GET `/api/funds?name=Alpha&start_year=2020&page=2`
+GET `/api/funds?name=Awesome&start_year=2020&page=1`
 
 #### Example Response
 
@@ -54,7 +60,7 @@ GET `/api/funds?name=Alpha&start_year=2020&page=2`
         {
             "id": 1,
             "name": "Awesome Fund",
-            "start_year": 2024,
+            "start_year": 2020,
             "company_id": 325,
             "created_at": "2024-01-13T14:56:41.000000Z",
             "updated_at": "2024-01-13T14:56:57.000000Z",
@@ -123,7 +129,7 @@ After updating the fund, it will check if there are any duplicates.
 
 #### Example Request
 
-GET `/api/funds/1`
+PUT `/api/funds/1`
 
 #### Example Request
 
